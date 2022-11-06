@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LandSlide Prediction</title>
+
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            outline: none;
+            transition: all 0.3s ease;
+            -webkit-animation-delay: 0s;
+            animation-delay: 0s;
+        }
+
+        body {
+            background: #74ebd5;
+            background: linear-gradient(to bottom, #74ebd5, #acb6e5);
+            font-size: 16px;
+            line-height: 1.2;
+            color: #888;
+        }
+
+        .pagewrap {
+            max-width: 100%;
+            height: 80vh;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form {
+            width: 90%;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-flow: column wrap;
+            background-color: #ecedee;
+            border-radius: 5px;
+        }
+
+        @media (min-width: 600px) {
+            .form {
+                max-width: 100%;
+            }
+        }
+
+        @media (min-width: 980px) and (max-width: 1400px) {
+            .form {
+                width: 75%;
+            }
+        }
+
+        .form__title {
+            position: relative;
+            z-index: 2;
+            background: transparent;
+            text-transform: uppercase;
+
+
+            text-align: center;
+            margin-top: .5rem;
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 2rem;
+            color: #111;
+
+        }
+
+        .form__submit {
+            margin-top: 1.2em;
+            border: none;
+            padding: 0.9em;
+            background-color: skyblue;
+            color: #fff;
+            letter-spacing: 1.2px;
+            font-size: 0.98rem;
+            text-transform: uppercase;
+            box-shadow: -3px 5px #5bbce4;
+            cursor: pointer;
+            transition: all 0s ease;
+        }
+
+        .form__submit.clicked {
+            position: relative;
+            top: 10px;
+            left: -3px;
+            box-shadow: 0px 0px;
+        }
+
+        .container {
+            position: relative;
+            width: 40%;
+            height: 15%;
+            margin-top: 1em;
+        }
+
+        .container__input {
+            width: 50%;
+            height: 100%;
+            padding: 1em;
+            border: 3px solid #fff;
+            background-color: transparent;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .container__input:first-of-type {
+            margin-bottom: 1em;
+        }
+
+        .container__input:focus+label,
+        .container__input:valid+label {
+            top: -8px;
+            left: 3px;
+            width: 30%;
+            height: 10%;
+            padding: 0.8em 3.5em;
+        }
+
+        .container__label {
+            position: absolute;
+            top: -8px;
+            left: 3px;
+            width: 30%;
+            height: 10%;
+            padding: 0.8em 3.5em;
+            background-color: skyblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        @media (min-width: 500px) {
+            .container__label {
+                top: 3px;
+                left: 3px;
+                height: 86%;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+    <h3 class="form__title">LandSlide Prediction</h3>
+
+    <div class="pagewrap">
+        <form action="predict" class="form" id="form" name="form" method="post">
+            <div class="container">
+                <input class="container__input" type="text" id="change" name="change" value=""
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                <label id="userLabel" for="username" class="container__label">Change</label>
+            </div>
+            <div class="container">
+                <input class="container__input" type="text" id="elevation" name="elevation" value=""
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                <label id="passLabel" for="pass" class="container__label">Elevation</label>
+            </div>
+            <div class="container">
+                <input class="container__input" type="text" id="slope" name="slope" value=""
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                <label id="passLabel" for="pass" class="container__label">Slope</label>
+            </div>
+
+            <div class="container">
+                <input class="container__input" type="text" id="twi" name="twi" value=""
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                <label id="passLabel" for="pass" class="container__label">TWI</label>
+            </div>
+            <div class="container">
+                <input class="container__input" type="text" id="drainage" name="drainage" value=""
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                <label id="passLabel" for="pass" class="container__label">Drainage</label>
+            </div>
+            <div class="container">
+                <input class="container__input" type="text" id="ndvi" name="ndvi" value=""
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                <label id="passLabel" for="pass" class="container__label">NDVI</label>
+            </div>
+            <div class="container">
+                <input class="container__input" type="text" id="rainfall" name="rainfall" value=""
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                <label id="passLabel" for="pass" class="container__label">Rainfall</label>
+            </div>
+            <div class="container">
+                <input class="container__input" type="text" id="geology" name="geology" value=""
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                <label id="passLabel" for="pass" class="container__label">Geology</label>
+            </div>
+            <button class="form__submit" id="predict" type="submit" value="submit">Predict</button>
+        </form>
+        
+
+
+
+    </div>
+    <h2 class="form__title"><b><u id="response_msg"></u></b></h2>
+
+</body>
+
+
+<script>
+
+
+    const form = document.getElementById('form');
+    const response_msg = document.getElementById('response_msg');
+    const predict_btn = document.getElementById('predict');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        response_msg.innerText = '';
+        predict_btn.style.display = 'none';
+        await uploadData(e.target);
+        predict_btn.style.display = 'block';
+
+
+    });
+
+    async function uploadData(target) {
+        const response = await fetch(target.action, {
+            method: "POST",
+            body: new FormData(target)
+        });
+
+        if (!response.ok) {
+            alert('Something went wrong,Please try again');
+            return;
+        }
+
+        const fetch_response = await response.json();
+
+        response_msg.innerText = fetch_response.status_msg;
+
+
+
+    }
+
+
+</script>
+
+
+</html>
